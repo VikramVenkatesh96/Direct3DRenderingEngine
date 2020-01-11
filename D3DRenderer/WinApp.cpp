@@ -21,5 +21,6 @@ void WinApp::UpdateFrame()
 {
 	const float dt = timer.Peek();
 	win.Gfx().ClearBuffer(1.0f, 0.0f, 0.0f);
+	win.Gfx().DrawTriangle();
 	win.Gfx().EndFrame();
 }
