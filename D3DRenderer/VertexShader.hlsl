@@ -1,4 +1,18 @@
-float4 main(float2 position: Position) :SV_Position
+struct VSOut
 {
-	return float4(position.x, position.y, 0.0f, 1.0f);
+	float3 color: Color;
+	float4 pos: SV_Position;
+};
+
+cbuffer CBuf
+{
+	matrix transform;
+};
+
+VSOut main(float3 position: Position, float3 color: Color)
+{
+	VSOut vsOut;
+	vsOut.pos = mul(float4(position, 1.0f),transform);
+	vsOut.color = color;
+	return vsOut;
 }

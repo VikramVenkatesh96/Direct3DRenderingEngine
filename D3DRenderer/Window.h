@@ -1,8 +1,11 @@
 #pragma once
 #include "WinHeaderOptimizer.h"
+#include "EngineExceptions.h"
 #include "Graphics.h"
+#include "KeyBoard.h"
 #include <memory>
 #include <optional>
+
 class Window
 {
 public:
@@ -30,6 +33,10 @@ private:
 	static LRESULT CALLBACK HandleMessageSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static LRESULT WINAPI HandleMessageThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+public:
+	KeyBoard kbd;
+
 private:
 	int width;
 	int height;

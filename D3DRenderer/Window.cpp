@@ -1,4 +1,6 @@
 #include "Window.h"
+#include "WindowsThrowMacros.h"
+#include "ImGUI/examples/imgui_impl_win32.h"
 
 Window::WindowClass Window::WindowClass::winClass;
 
@@ -19,12 +21,14 @@ Window::Window(int width, int height, const char* name)
 	);
 
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
-
+	ImGui_ImplWin32_Init(hWnd);
 	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
 {
+	ImGui_ImplWin32_Shutdown();
+	DestroyWindow(hWnd);
 }
 
 std::optional<int> Window::ProcessMessages()
@@ -69,11 +73,36 @@ LRESULT WINAPI Window::HandleMessageThunk(HWND hWnd, UINT msg, WPARAM wParam, LP
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+	{
+		return true;
+	}
 	switch (msg)
 	{
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
+
+	case WM_KILLFOCUS:
+		kbd.ClearState();
+		break;
+
+	case WM_KEYDOWN:
+	case WM_SYSKEYDOWN:
+		if (!(lParam & 0x40000000) || kbd.IsAutoRepeatEnabled())
+		{
+			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+		}
+		break;
+
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+
+	case WM_CHAR:
+		kbd.OnChar(static_cast<unsigned char>(wParam));
+		break;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }

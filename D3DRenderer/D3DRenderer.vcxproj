@@ -71,9 +71,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)ImGUI;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)ImGUI;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -154,17 +156,87 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlphaBlender.cpp" />
+    <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="DXGIInfoManager.cpp" />
+    <ClCompile Include="EngineExceptions.cpp" />
+    <ClCompile Include="GDIPlusManager.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="ImGUIManager.cpp" />
+    <ClCompile Include="ImGUI\examples\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ImGUI\examples\imgui_impl_win32.cpp" />
+    <ClCompile Include="ImGUI\imgui.cpp" />
+    <ClCompile Include="ImGUI\imgui_demo.cpp" />
+    <ClCompile Include="ImGUI\imgui_draw.cpp" />
+    <ClCompile Include="ImGUI\imgui_widgets.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="InputLayout.cpp" />
+    <ClCompile Include="KeyBoard.cpp" />
+    <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="RendererMain.cpp" />
+    <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="Sheet.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Topology.cpp" />
+    <ClCompile Include="TransformCBuf.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="WinApp.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlphaBlender.h" />
+    <ClInclude Include="Bindable.h" />
+    <ClInclude Include="BindableBase.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Colors.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="DrawableBase.h" />
+    <ClInclude Include="DXGIInfoManager.h" />
+    <ClInclude Include="EngineExceptions.h" />
+    <ClInclude Include="GDIPlusManager.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="GraphicsThrowMacros.h" />
+    <ClInclude Include="ImGUIManager.h" />
+    <ClInclude Include="ImGUI\examples\imgui_impl_dx11.h" />
+    <ClInclude Include="ImGUI\examples\imgui_impl_win32.h" />
+    <ClInclude Include="ImGUI\imconfig.h" />
+    <ClInclude Include="ImGUI\imgui.h" />
+    <ClInclude Include="ImGUI\imgui_internal.h" />
+    <ClInclude Include="ImGUI\imstb_rectpack.h" />
+    <ClInclude Include="ImGUI\imstb_textedit.h" />
+    <ClInclude Include="ImGUI\imstb_truetype.h" />
+    <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="IndexedTriangleList.h" />
+    <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="KeyBoard.h" />
+    <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Sampler.h" />
+    <ClInclude Include="Sheet.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="Surface.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Topology.h" />
+    <ClInclude Include="TransformCBuf.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexShader.h" />
     <ClInclude Include="WinApp.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="WindowsThrowMacros.h" />
     <ClInclude Include="WinHeaderOptimizer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +250,22 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <FxCompile Include="TexturePS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="TextureVS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="VertexShader.hlsl">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
@@ -188,6 +276,9 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\2ab.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
